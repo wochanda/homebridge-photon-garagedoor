@@ -1,8 +1,8 @@
 int lastOpenSensor = 0;
 int openSensor = 0;
 
-int relayPin = D0;
-int doorOpenSensorPin = D1;
+int relayPin = D3;
+int doorOpenSensorPin = D0;
 
 
 void setup() {
@@ -21,7 +21,6 @@ void loop() {
 
     if (openSensor != lastOpenSensor) {
         publishDoorState();
-
         lastOpenSensor = openSensor;
     }
 
@@ -39,37 +38,23 @@ void publishDoorState() {
 
 int openClose(String value) {
     if (value == "open") {
-        open();
+        toggle();
         return 1;
     }
     else if (value == "close") {
-        close();
+        toggle();
         return 1;
     }
 
     return 0;
 }
 
-void open() {
-    //your code here
-
-    //example codes only
+void toggle() {
     digitalWrite(relayPin, HIGH);
     delay(1000);
     digitalWrite(relayPin, LOW);
 }
 
-void close() {
-    //your code here
-
-    //example codes only
-    digitalWrite(relayPin, HIGH);
-    delay(1000);
-    digitalWrite(relayPin, LOW);
-}
-
-int getDoorSensor() {
-   //your code here
+void getDoorSensor() {
    openSensor = digitalRead(doorOpenSensorPin);
-   return openSensor;
 }
